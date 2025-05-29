@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi To do list/title>
+</head>
+<body>
+   <div class="app-container">
+<header>
+    <h2>To Do List Harian</h2>
+    <div class="profile">
+<p><strong>Nama: </strong></p>
+<p><strong>Jabatan: </strong></p>
+    </div>
+    <div class="time" id="time"></div>
+</header>
+
+<section class="form-section">
+    <textarea id="taskInput" placeholder="Tulis tugas di sini..."></textarea>
+    <select id="priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+    <button onclick="addTask()">Submit</button>
+</section>
+
+<section class="todo-section">
+    <h3>To DO List</h3>
+    <ul id="todoList"></ul>
+</section>
+
+<section class="done-section">
+<ul id="doneList"
+</section>
+<button class="delete-button" onclick="deleteAll()">Hapus Semua</button>
+   </div> 
+
+   <script src="script.js"></script>
+</body>
+</html>
