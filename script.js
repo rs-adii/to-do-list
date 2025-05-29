@@ -25,7 +25,7 @@ function addTask() {
     const listItem = document.createElement("li");
     listItem.innerHTML = `
     <input type="checkbox" onchange="markAsDone(this)">
-    <span>[$priority] ${taskText}</span>
+    <span>[${priority}] ${taskText}</span>
     <small style="display:block; font-size:0.8em; color:#666;">${new Date().toLocaleDateString('id-ID')}</small>
 `;
 
