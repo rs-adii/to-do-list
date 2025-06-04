@@ -1,51 +1,46 @@
-const taskInput = document.getElementById("taskInput");
-const prioritySelect = document.getElementById("priority");
-const todoList = document.getElementById("todoList");
-const doneList = document.getElementById("doneList");
-const timeElement = document.getElementById("time");
+const taskInput = document.getElementById('taskInput');
+const prioritySelect = document.getElementById('prioritySelect');
+const addBtn = document.getElementById('addBtn');
+const todoList = document.getElementById('todoList');
+const doneList = document.getElementById('doneList');
+const deleteAllBtn = document.getElementById('deleteAllBtn');
+const tanggal = document.getElementById('tanggal');
 
-// Tampilkan waltu saat ini
-function showTime() {
-const now = new Date();
-const option = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-timeElement.textContent = now.toLocaleDateString('id-ID', options);
-}
-showTime();
+const today = new Date();
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+tanggal.textContent = today.toLocaleDateString('id-ID', options);
 
-// Tambah tugas
-function addTask() {
-    const taskText = taskInput.value.trim();
-    const priority = prioritySelect.value;
+addBtn.addEventListener('click', () => {
+  const task = taskInput.value.trim();
+  const priority = prioritySelect.value;
 
-    if(taskText === "") {
-        alert("Tugas Tidak Boleh Kosong!");
-        return;
+  if (task === '') return;
+
+  const li = document.createElement('li');
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+
+  const taskText = document.createElement('span');
+  taskText.innerHTML = `[<span class="priority-${priority}">${priority}</span>] ${task}<br><small>${today.toLocaleDateString('id-ID')}</small>`;
+
+  checkbox.addEventListener('change', () => {
+    if (checkbox.checked) {
+      li.classList.add('done');
+      doneList.appendChild(li);
+    } else {
+      li.classList.remove('done');
+      todoList.appendChild(li);
     }
+  });
 
-    const listItem = document.createElement("li");
-    listItem.innerHTML = `
-    <input type="checkbox" onchange="markAsDone(this)">
-    <span>[${priority}] ${taskText}</span>
-    <small style="display:block; font-size:0.8em; color:#666;">${new Date().toLocaleDateString('id-ID')}</small>
-`;
+  li.appendChild(checkbox);
+  li.appendChild(taskText);
+  todoList.appendChild(li);
 
-todoList.appendChild(listItem);
-taskInput.value = "";
-prioritySelect.value = "Low";
-}
+  taskInput.value = '';
+});
 
-// Centang = pindah ke Done
-function markAsDone(checkbox){
-    const listItem = checkbox.parentElement;
-    listItem.classList.add("done");
-    listItem.removeChild(checkbox);
-    doneList.appendChild(listItem);
-}
-
-// Hapus semua
-function deleteAll() {
-    if(confirm("Yakin ingin menghapus semua tugas?")) {
-        todoList.innerHTML = "";
-        doneList.innerHTML = "";
-    }
-}
+deleteAllBtn.addEventListener('click', () => {
+  todoList.innerHTML = '';
+  doneList.innerHTML = '';
+});
